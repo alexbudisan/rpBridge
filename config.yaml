@@ -1,0 +1,12 @@
+mqtt:
+  address: 192.168.0.201
+  port: 1883
+  topics:
+    - commands: rpcommands_dontUse
+    - housekeeping: rphousekeeping
+    - status: rpstatus_dontUse
+    - button: rpbutton
+  clientName: "rpDAQC"
+piplates:
+  analogPoller: 1
+  digitalPoller: 0
