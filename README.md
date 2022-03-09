@@ -42,3 +42,24 @@ WantedBy = multi-user.target
 ```
 
 Once that's done, symply start it via ```sudo systemctl start nameOfService.service```
+
+MQTT messages, broken down per subscription:
+
+1. `housekeeping` messages (world → app):
+
+- `exit`: disconnect the mqtt client and close the app/service
+- `bridgestatus`: returns information on the mqtt client, as well as number of mqtt messages in queue
+- `boardsstatus`: returns boards handled by the app
+- `relaystatus`: returns status of relays on all handled RELAYplates
+
+2. `commands` messages:
+
+- set relay status (HA → app): `rp<plate>:<relay> - (ON|OFF)`, where (RELAY)plate is between 0 and 7, relay is between 1 and 7
+  
+3. `status` messages:
+
+- get relay status (app → HA): `rp<plate>:<relay> - (ON|OFF)`, where (RELAY)plate is between 0 and 7, relay is between 1 and 7
+  
+4. `button` messages:
+  
+- button state (app → HA): `daqc<plate>:<input> - (ON|OFF)`, where (DAQC)plate is between 0 and 7, input is between 0 and 7 for analog inputs, 8 and 15 for digital inputs
